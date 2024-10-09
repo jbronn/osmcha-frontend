@@ -2,6 +2,58 @@
 
 Log of changes since the 2.0 version
 
+### 1.0.2
+- Update changeset-map to 1.14.0
+- Update @turf dependencies to 7.1.0
+
+### 1.0.1
+- Update changeset-map to 1.13.0
+- Update Who's That server URL
+
+### 1.0.0
+- Add OSM US logo and update main logo
+
+### 0.88.1
+- Loads all tags and reasons to avoid errors
+
+### 0.88.0
+- Enable oauth2 authorization (#733)
+
+### 0.87.5
+- Update changeset-map version to 1.12.1
+
+### 0.87.4
+- Fix error in the copy changeset url link
+  
+### 0.87.3
+- Fix error when loading AOIs with tags or flags filters
+
+### 0.87.2
+- Filter error in async Multiselect components of Filters page
+
+### 0.87.1
+- Remove order_by id option
+- Fix bugs in Tags dropdown loading
+
+### 0.87.0
+- Add Github action to build and publish docker images
+- Update Github URLs
+- Add Donate link
+- Fix error when reading the AOI and Watchlist response format (#700)
+- Switch env variable to REACT_APP_DISABLE_REAL_CHANGESETS (#696)
+- Update url for Rapid (#689)
+- Add support for osm-revert (#691)
+
+### 0.86.0
+- Update changeset-map version
+- Pass configuration to changeset-map
+
+### 0.85.4
+-  Improve UI on My Teams, Saved Filters, Watchlist & Trusted users pages (#654)
+
+### 0.85.3
+- Downgrade changeset-map version (#638)
+
 ### 0.85.2
 - Add ANY and ALL options to tag_changes filter field
 

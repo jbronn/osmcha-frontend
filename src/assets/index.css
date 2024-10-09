@@ -331,6 +331,10 @@ img {
   z-index: 0 !important;
 }
 
+.cmap-changeset-link, .cmap-wikidata-link {
+  text-decoration: underline;
+}
+
 .txt-bold-on-hover:hover {
   font-weight: 600;
 }
@@ -401,10 +405,6 @@ img {
   border-left-width: 4px !important;
 }
 
-.cmap-changeset-link {
-  text-decoration: underline;
-}
-
 /* bbox map*/
 .bbox-map-clear {
   position: relative;
@@ -446,11 +446,15 @@ img {
 
 /*home images*/
 .osmcha-logo {
-  width: 40vw;
+  width: 35vw;
 }
 
 .workflow-img {
-  width: 35vw;
+  width: 30vw;
+}
+
+.osmus-img {
+  width: 14vw;
 }
 
 #guide > p {

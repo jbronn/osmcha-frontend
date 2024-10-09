@@ -7,7 +7,16 @@ import { BASE_PATH } from '../config';
 import notifications from '../config/notifications';
 
 import { fetchChangeset, setHarmful, setTag } from '../network/changeset';
-import { getChangeset as gcs } from '../components/changeset-map';
+import { importChangesetMap } from '../utils/cmap';
+import {
+  apiOSM,
+  osmUrl,
+  isOfficialOSM,
+  osmchaUrl,
+  overpassBase,
+  enableRealChangesets,
+  mapboxAccessToken
+} from '../config/constants';
 
 import {
   getChangesetIdFromLocation,
@@ -264,7 +273,17 @@ export function* fetchChangesetAction(changesetId: number): Object {
 }
 
 export function changesetMapModule(changesetId: number): any {
-  return gcs(changesetId);
+  return importChangesetMap('getChangeset').then((getCMapData: any) =>
+    getCMapData(changesetId, {
+      osmApiBase: apiOSM,
+      osmBase: osmUrl,
+      enableRealChangesets,
+      overpassBase,
+      mapboxAccessToken,
+      isOSMApp: isOfficialOSM,
+      osmchaBase: osmchaUrl
+    })
+  );
 }
 export const changesetMapSelector = (state: RootStateType) =>
   state.changeset.getIn(['changesetMap'], Map());

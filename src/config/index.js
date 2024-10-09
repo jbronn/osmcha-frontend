@@ -6,13 +6,16 @@ export const isLocal = process.env.NODE_ENV === 'development';
 export const stack = process.env.REACT_APP_STACK;
 export const appVersion = process.env.REACT_APP_VERSION;
 export const credentialsPolicy =
-    process.env.REACT_APP_CREDENTIALS_POLICY || (process.env.NODE_ENV === 'development' ? 'include' : 'same-origin');
+  process.env.REACT_APP_CREDENTIALS_POLICY || (process.env.NODE_ENV === 'development' ? 'include' : 'same-origin');
 export const apiCredentials = (process.env.REACT_APP_OSMCHA_CREDENTIALS === 'enabled' ? credentialsPolicy : 'omit');
 export const API_URL = process.env.REACT_APP_API_URL || (isProd ? 'https://osmcha.org/api/v1' : 'https://staging.osmcha.org/api/v1');
 export const PUBLIC_URL = process.env.REACT_APP_PUBLIC_URL || '';
 const _BASE_PATH = PUBLIC_URL.startsWith('http') ? new URL(PUBLIC_URL).pathname : '';
-export const BASE_PATH = _BASE_PATH === '/' ? '': _BASE_PATH;
+export const BASE_PATH = _BASE_PATH === '/' ? '' : _BASE_PATH;
+
+let url =
+  process.env.REACT_APP_PRODUCTION_API_URL || '';
 
 window.debug_info = () =>
   `isDev=${isDev.toString()} isStaging=${isStaging.toString()} isProd=${isProd.toString()} isLocal=${isLocal.toString()} stack=${stack ||
-    'null'} appVersion=${appVersion || 'null'} url=${API_URL}`;
+  'null'} appVersion=${appVersion || 'null'} url=${API_URL}`;

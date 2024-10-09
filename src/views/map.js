@@ -7,6 +7,13 @@ import { SignIn } from '../components/sign_in';
 import { dispatchEvent } from '../utils/dispatch_event';
 import { updateStyle } from '../store/map_controls_actions';
 import { getMapInstance as gmi, render } from '../components/changeset-map';
+import { importChangesetMap } from '../utils/cmap';
+import {
+  mapboxAccessToken,
+  osmUrl,
+  isOfficialOSM,
+  enableRealChangesets
+} from '../config/constants';
 
 import '../assets/style.css';
 import type { RootStateType } from '../store';
@@ -47,7 +54,11 @@ function loadMap() {
       width: width + 'px',
       height: Math.max(400, height) + 'px',
       data: currentChangesetMap,
-      disableSidebar: true
+      disableSidebar: true,
+      enableRealChangesets: enableRealChangesets,
+      mapboxAccessToken: mapboxAccessToken,
+      osmBase: osmUrl,
+      isOSMApp: isOfficialOSM
     });
   });
 }
@@ -165,20 +176,20 @@ class CMap extends React.PureComponent {
           >
             {(this.props.loadingChangesetMap ||
               this.props.errorChangesetMap) && (
-              <div
-                key={0}
-                id="placeholder"
-                className={`absolute z0
+                <div
+                  key={0}
+                  id="placeholder"
+                  className={`absolute z0
                   ${this.props.errorChangesetMap ? 'bg-red-faint' : 'bg-black'}
                   `}
-                style={{
-                  height: this.state.height,
-                  width: this.state.width
-                }}
-              >
-                <Loading height={this.state.height} />
-              </div>
-            )}
+                  style={{
+                    height: this.state.height,
+                    width: this.state.width
+                  }}
+                >
+                  <Loading height={this.state.height} />
+                </div>
+              )}
           </CSSTransitionGroup>
         </div>
       );

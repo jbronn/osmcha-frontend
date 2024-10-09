@@ -6,6 +6,7 @@ import { appVersion, isDev, isStaging, isLocal } from '../config';
 import banner from '../assets/banner.png';
 import work_flow from '../assets/work_flow.png';
 import { BASE_PATH } from '../config';
+import osmus from '../assets/osmus.png';
 
 export function Home() {
   return (
@@ -16,7 +17,7 @@ export function Home() {
         <img
           src={work_flow}
           className="pt36 workflow-img"
-          alt="Validation tool for OpenStreetmap"
+          alt="Filter, Select, View, Verify"
         />
       </div>
       <div className="flex-child flex-child--grow">&nbsp;</div>
@@ -40,7 +41,7 @@ export function Home() {
           |{' '}
           <a
             target="__blank"
-            className="link link--gray  flex-parent flex-parent--row flex-parent--center-cross mx6"
+            className="link link--gray flex-parent flex-parent--row flex-parent--center-cross mx6"
             href="https://github.com/radiant-maxar/osmcha-frontend/blob/master/CONTRIBUTING.md"
           >
             <svg className="icon">
@@ -51,7 +52,7 @@ export function Home() {
           |{' '}
           <a
             target="__blank"
-            className="link link--gray  flex-parent flex-parent--row flex-parent--center-cross mx6"
+            className="link link--gray flex-parent flex-parent--row flex-parent--center-cross mx6"
             href="https://github.com/radiant-maxar/osmcha-frontend/issues"
           >
             <svg className="icon">
@@ -60,6 +61,20 @@ export function Home() {
             <span>File an issue</span>
           </a>
         </div>
+      </div>
+      <div className="flex-parent flex-parent--column align-center txt-l pt12">
+        <p className="block pt36 pb6 txt-m">Supported by</p>
+        <a
+          target="__blank"
+          className="link link--gray flex-parent flex-parent--row flex-parent--center-cross mx6"
+          href="https://openstreetmap.us"
+        >
+          <img
+            src={osmus}
+            className="osmus-img"
+            alt="An OpenStreetMap US charter project"
+          />
+        </a>
       </div>
       <div className="flex-child flex-child--grow">&nbsp;</div>
     </div>

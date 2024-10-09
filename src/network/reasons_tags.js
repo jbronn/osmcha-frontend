@@ -3,7 +3,7 @@ import { API_URL, apiCredentials } from '../config';
 import { handleErrors } from './aoi';
 
 export function fetchReasons(token: ?string) {
-  return fetch(`${API_URL}/suspicion-reasons/`, {
+  return fetch(`${API_URL}/suspicion-reasons/?page_size=200`, {
     credentials: apiCredentials,
     method: 'GET',
     headers: {
@@ -12,13 +12,12 @@ export function fetchReasons(token: ?string) {
     }
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json())
+    .then(res => res.results);
 }
 
 export function fetchTags(token: ?string) {
-  return fetch(`${API_URL}/tags/`, {
+  return fetch(`${API_URL}/tags/?page_size=200`, {
     credentials: apiCredentials,
     method: 'GET',
     headers: {
@@ -27,7 +26,6 @@ export function fetchTags(token: ?string) {
     }
   })
     .then(handleErrors)
-    .then(res => {
-      return res.json();
-    });
+    .then(res => res.json())
+    .then(res => res.results);
 }

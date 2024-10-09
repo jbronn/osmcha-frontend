@@ -6,18 +6,23 @@ import { Dropdown } from '../dropdown';
 import { isMobile } from '../../utils';
 
 function openEditor(selected) {
-  getMapInstance();
-  let map = getMapInstance().map;
-  let baseUrl;
-  if (selected && selected[0].value === 'iD') {
-    baseUrl = `${osmBaseUrl}/edit?editor=id&`;
-  }
-  if (baseUrl) {
-    const center = map.getCenter();
-    const zoom = map.getZoom();
-    let windowObjectReference = window.open('editor - OSMCha');
-    windowObjectReference.location.href = `${baseUrl}#map=${zoom}/${center.lat}/${center.lng}`;
-  }
+  importChangesetMap('getMapInstance')
+    .then(r => r && r() && r().map)
+    .then(map => {
+      let baseUrl;
+      if (selected && selected[0].value === 'iD') {
+        baseUrl = `${osmBaseUrl}/edit?editor=id&`;
+      }
+      if (selected && selected[0].value === 'Rapid') {
+        baseUrl = 'https://rapideditor.org/edit?';
+      }
+      if (baseUrl) {
+        const center = map.getCenter();
+        const zoom = map.getZoom();
+        let windowObjectReference = window.open('editor - OSMCha');
+        windowObjectReference.location.href = `${baseUrl}#map=${zoom}/${center.lat}/${center.lng}`;
+      }
+    });
 }
 
 export function OpenIn({ display, changesetId, coordinates, className }) {
@@ -30,7 +35,26 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
     {
       label: 'JOSM',
       value: 'JOSM',
-       href: `http://127.0.0.1:8111/import?url=${osmApiUrl}/api/0.6/changeset/${changesetId}/download`
+      href: `http://127.0.0.1:8111/import?url=${osmApiUrl}/api/0.6/changeset/${changesetId}/download`
+    },
+    {
+      label: 'Level0',
+      value: 'Level0',
+      href: `http://level0.osmz.ru/?url=changeset/${changesetId}`
+    },
+    {
+      label: 'osm-revert',
+      value: 'osm-revert',
+      href: `https://revert.monicz.dev/?changesets=${changesetId}`
+    },
+    {
+      label: 'Rapid',
+      value: 'Rapid'
+    },
+    {
+      label: 'ResultMaps',
+      value: 'ResultMaps',
+      href: `https://resultmaps.neis-one.org/osm-change-viz?c=${changesetId}`
     }
   ];
   if (mobile) {
@@ -44,8 +68,8 @@ export function OpenIn({ display, changesetId, coordinates, className }) {
   return (
     <div className={`select-container ${className}`}>
       <Dropdown
-        onAdd={() => {}}
-        onRemove={() => {}}
+        onAdd={() => { }}
+        onRemove={() => { }}
         value={[]}
         onChange={openEditor}
         options={options}

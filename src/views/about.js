@@ -1,6 +1,8 @@
 // @flow
 import React from 'react';
 import showdown from 'showdown';
+import DOMPurify from 'dompurify';
+
 import { cancelablePromise } from '../utils/promise';
 import { appVersion, isDev, isStaging, isLocal } from '../config';
 
@@ -67,7 +69,7 @@ export class About extends React.PureComponent {
   componentDidMount() {
     this.cancellablePromise = cancelablePromise(
       fetch(
-        'https://raw.githubusercontent.com/mapbox/osmcha-frontend/master/ABOUT.md'
+        'https://raw.githubusercontent.com/osmcha/osmcha-frontend/master/ABOUT.md'
       ).then(r => r.text())
     );
     this.cancellablePromise.promise
@@ -90,7 +92,7 @@ export class About extends React.PureComponent {
           id="guide"
           className="pb36 px12"
           dangerouslySetInnerHTML={{
-            __html: this.state.about
+            __html: DOMPurify.sanitize(this.state.about)
           }}
         />
       </div>

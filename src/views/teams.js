@@ -22,7 +22,7 @@ import type { RootStateType } from '../store';
 
 import NewTeam from '../components/teams/new_team';
 
-export type teamsOptionsType = Map<'label' | 'value', ?string>;
+export type teamsOptionsType = Map<'label' | 'value',?string>;
 export type teamType = List<filterOptionsType>;
 export type teamsType = Map<string, filterType>;
 
@@ -41,7 +41,7 @@ const TeamsBlock = ({ data, removeTeam, editTeam }) => (
           pathname: `${BASE_PATH}/filters`
         }}
       >
-        Filter team changesets
+        Changesets
       </Link>
       <Link
         className="mx3 btn btn--s border border--1 border--darken5 border--darken25-on-hover round bg-darken10 bg-darken5-on-hover color-gray transition"
@@ -49,8 +49,14 @@ const TeamsBlock = ({ data, removeTeam, editTeam }) => (
       >
         Edit
       </Link>
-      <Button className="mr3" onClick={() => removeTeam(data.getIn(['id']))}>
-        Remove
+      <Button
+        className="mr3 bg-transparent border--0"
+        onClick={() => removeTeam(data.getIn(['id']))}
+      >
+        <svg className={'icon txt-m mb3 inline-block align-middle'}>
+          <use xlinkHref="#icon-trash" />
+        </svg>
+        Delete
       </Button>
     </span>
   </BlockMarkup>
@@ -141,9 +147,8 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
 
     return (
       <div
-        className={`flex-parent flex-parent--column changesets-filters bg-white${
-          mobile ? 'viewport-full' : ''
-        }`}
+        className={`flex-parent flex-parent--column changesets-filters bg-white${mobile ? 'viewport-full' : ''
+          }`}
       >
         <SecondaryPagesHeader
           title="Teams"
@@ -154,9 +159,6 @@ class MappingTeams extends React.PureComponent<any, propsType, any> {
             {this.props.token && (
               <div>
                 <div className="mt24 mb12">
-                  <h2 className="pl12 txt-xl mr6 txt-bold border-b border--gray-light border--1">
-                    My mapping teams
-                  </h2>
                   <ListFortified
                     data={teamsList}
                     TargetBlock={TeamsBlock}

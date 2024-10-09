@@ -38,7 +38,7 @@ type propsType = {
   username: ?string,
   lastKeyStroke: Map<string, *>,
   handleChangesetModifyTag: (number, Map<string, *>, Object, boolean) => mixed,
-  handleChangesetModifyHarmful: (number, Map<string, *>, boolean | -1) => mixed
+    handleChangesetModifyHarmful: (number, Map < string, *>, boolean | -1) => mixed
 };
 
 class NavbarChangeset extends React.PureComponent<void, propsType, *> {
@@ -85,9 +85,8 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
           0,
           0
         ]);
-        const url = `${osmBaseUrl}/edit?changeset=${
-          this.props.changesetId
-        }#map=15/${coordinates && coordinates.get('1')}/${coordinates &&
+        const url = `${osmBaseUrl}/edit?changeset=${this.props.changesetId
+          }#map=15/${coordinates && coordinates.get('1')}/${coordinates &&
           coordinates.get('0')}`;
         window.open(url, '_blank');
         break;
@@ -154,14 +153,12 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
 
     return (
       <Navbar
-        className={`bg-gray-faint color-gray border-b border--gray-light border--1 ${
-          mobile ? '' : 'px30'
-        }`}
+        className={`bg-gray-faint color-gray border-b border--gray-light border--1 ${mobile ? '' : 'px30'
+          }`}
         title={
           <div
-            className={`flex-parent flex-parent--row flex-parent--wrap ${
-              mobile ? 'align-items--center' : ''
-            }`}
+            className={`flex-parent flex-parent--row flex-parent--wrap ${mobile ? 'align-items--center' : ''
+              }`}
           >
             {mobile && (
               <Link
@@ -223,9 +220,8 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
               }
               display={
                 mobile
-                  ? `${this.isChecked() ? '' : 'Changeset'} ${
-                      this.props.changesetId
-                    }`
+                  ? `${this.isChecked() ? '' : 'Changeset'} ${this.props.changesetId
+                  }`
                   : 'Open with'
               }
             />
@@ -239,13 +235,13 @@ class NavbarChangeset extends React.PureComponent<void, propsType, *> {
                 'properties',
                 'check_user'
               ]) && (
-                <Tags
-                  changesetId={this.props.changesetId}
-                  currentChangeset={this.props.currentChangeset}
-                  disabled={false}
-                  handleChangesetModifyTag={this.props.handleChangesetModifyTag}
-                />
-              )}
+                  <Tags
+                    changesetId={this.props.changesetId}
+                    currentChangeset={this.props.currentChangeset}
+                    disabled={false}
+                    handleChangesetModifyTag={this.props.handleChangesetModifyTag}
+                  />
+                )}
               <Verify
                 changeset={this.props.currentChangeset}
                 placeholder="Verify"

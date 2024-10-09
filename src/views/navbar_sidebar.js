@@ -1,7 +1,6 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
-import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
 
@@ -9,10 +8,8 @@ import { Button } from '../components/button';
 import { Navbar } from '../components/navbar';
 import { Dropdown } from '../components/dropdown';
 
-import { createPopup } from '../utils/create_popup';
-import { handlePopupCallback, isMobile } from '../utils';
-import { BASE_PATH } from '../config'
-import { osmAuthUrl } from '../config/constants';
+import { isMobile } from '../utils';
+import { getAuthUrl } from '../network/auth';
 
 import {
   getOAuthToken,
@@ -24,10 +21,8 @@ import type { RootStateType } from '../store';
 
 class NavbarSidebar extends React.PureComponent {
   props: {
-    changesetId: ?number,
     location: Object,
-    avatar: ?string,
-    currentChangeset: Map<string, *>,
+    uid: ?string,
     username: ?string,
     token: ?string,
     oAuthToken: ?string,
@@ -38,17 +33,14 @@ class NavbarSidebar extends React.PureComponent {
   };
 
   handleLoginClick = () => {
-    var oAuthToken = this.props.oAuthToken;
-    if (!oAuthToken) return;
-
-    createPopup('oauth_popup', `${osmAuthUrl}?oauth_token=${oAuthToken}`);
-    handlePopupCallback().then(oAuthObj => {
-      this.props.getFinalToken(oAuthObj.oauth_verifier);
+    getAuthUrl().then(res => {
+      window.location.assign(res.auth_url);
     });
   };
 
   onUserMenuSelect = (arr: Array<Object>) => {
     const username = this.props.username;
+    const uid = this.props.uid;
 
     if (arr.length === 1) {
       if (arr[0].url === `${BASE_PATH}/logout`) {
@@ -58,8 +50,8 @@ class NavbarSidebar extends React.PureComponent {
       if (arr[0].url === `${BASE_PATH}/my-changesets`) {
         this.props.push({
           ...this.props.location,
-          search: `filters={"users":[{"label":"${username}","value":"${username}"}],"date__gte":[{"label":"","value":""}]}`,
-          pathname: `${BASE_PATH}/`
+          search: `filters={"uids":[{"label":"${uid}","value":"${uid}"}],"date__gte":[{"label":"","value":""}]}`,
+          pathname: '/'
         });
         return;
       }
@@ -96,25 +88,25 @@ class NavbarSidebar extends React.PureComponent {
           )
         }
         options={[
-          { label: 'Account settings', url: `${BASE_PATH}/user` },
+          { label: 'Account Settings', url: `${BASE_PATH}/user` },
           {
-            label: 'My changesets',
+            label: 'My Changesets',
             url: `${BASE_PATH}/my-changesets`
           },
           {
-            label: 'My reviews',
+            label: 'My Reviews',
             url: `${BASE_PATH}/my-reviews`
           },
-          { label: 'My saved filters', url: `${BASE_PATH}/saved-filters` },
-          { label: 'My teams', url: `${BASE_PATH}/teams` },
-          { label: 'My trusted users list', url: `${BASE_PATH}/trusted-users` },
-          { label: 'My watchlist', url: `${BASE_PATH}/watchlist` },
+          { label: 'My Saved Filters', url: `${BASE_PATH}/saved-filters` },
+          { label: 'My Teams', url: `${BASE_PATH}/teams` },
+          { label: 'My Trusted Users List', url: `${BASE_PATH}/trusted-users` },
+          { label: 'My Watchlist', url: `${BASE_PATH}/watchlist` },
           { label: 'Logout', url: `${BASE_PATH}/logout` }
         ]}
         onChange={this.onUserMenuSelect}
         value={[]}
-        onAdd={() => {}}
-        onRemove={() => {}}
+        onAdd={() => { }}
+        onRemove={() => { }}
         position="right"
       />
     );
@@ -175,15 +167,10 @@ class NavbarSidebar extends React.PureComponent {
 NavbarSidebar = connect(
   (state: RootStateType, props) => ({
     location: state.routing.location,
-    changesetId: parseInt(state.changeset.get('changesetId'), 10),
-    currentChangeset: state.changeset.getIn([
-      'changesets',
-      parseInt(state.changeset.get('changesetId'), 10)
-    ]),
     oAuthToken: state.auth.get('oAuthToken'),
     token: state.auth.get('token'),
     username: state.auth.getIn(['userDetails', 'username']),
-    avatar: state.auth.getIn(['userDetails', 'avatar'])
+    uid: state.auth.getIn(['userDetails', 'uid'])
   }),
   {
     getOAuthToken,
