@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import showdown from 'showdown';
-import { formatDistanceToNow, parse } from 'date-fns';
+import { parse } from 'date-fns';
 import { Avatar } from '../avatar';
 import { getObjAsQueryParam } from '../../utils/query_params';
 import { RelativeTime } from '../relative_time';

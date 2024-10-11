@@ -1,5 +1,6 @@
 // @flow
 import React from 'react';
+import { BASE_PATH } from '../config';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';

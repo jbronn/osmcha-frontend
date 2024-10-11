@@ -7,7 +7,6 @@ import { SignIn } from '../components/sign_in';
 import { dispatchEvent } from '../utils/dispatch_event';
 import { updateStyle } from '../store/map_controls_actions';
 import { getMapInstance as gmi, render } from '../components/changeset-map';
-import { importChangesetMap } from '../utils/cmap';
 import {
   mapboxAccessToken,
   osmUrl,

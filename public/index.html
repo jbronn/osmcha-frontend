@@ -26,7 +26,7 @@
     // the correct url will be waiting in the browser's history for
     // the single page app to route accordingly.
     (function (l) {
-      console.log(l.host.indexOf('github.io'));
+      //console.log(l.host.indexOf('github.io'));
       if (l.search && l.host.indexOf('github.io') > -1) {
         var q = {};
         l.search.slice(1).split('&').forEach(function (v) {
@@ -47,10 +47,6 @@
 
 <body>
   <div id="root"></div>
-  <!-- Cloudflare Web Analytics -->
-  <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-    data-cf-beacon='{"token": "99cb727394cb44ea892fbec7a0244274"}'></script>
-  <!-- End Cloudflare Web Analytics -->
 </body>
 
 </html>

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { osmApiUrl, osmBaseUrl } from '../../config/constants';
-import { getMapInstance } from '../changeset-map';
 import { Dropdown } from '../dropdown';
 import { isMobile } from '../../utils';
+import { importChangesetMap } from '../../utils/cmap';
 
 function openEditor(selected) {
   importChangesetMap('getMapInstance')

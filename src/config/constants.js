@@ -1,7 +1,6 @@
 //@flow
 import { API_URL, credentialsPolicy } from './';
 
-export const PAGE_SIZE = process.env.REACT_APP_PAGE_SIZE || 25;
 export const overpassBase =
   process.env.REACT_APP_OVERPASS_BASE ||
   '//overpass.osmcha.org/api/interpreter';
